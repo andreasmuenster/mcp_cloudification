@@ -1,4 +1,4 @@
-# MCP Cloudification Server
+# MCP Cloudification-Repository Server
 
 Ein MCP-Server, der das öffentliche SAP-Repository [abap-atc-cr-cv-s4hc](https://github.com/SAP/abap-atc-cr-cv-s4hc) durchsuchbar macht — direkt aus deinem KI-Tool heraus. Kein Browser, kein manuelles JSON-Wühlen.
 
