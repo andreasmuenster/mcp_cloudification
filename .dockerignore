@@ -1,0 +1,8 @@
+venv/
+.git/
+*.db
+__pycache__/
+*.pyc
+*.pyo
+abap-atc-cr-cv-s4hc/
+abap-atc-cr-cv-s4hc/*
