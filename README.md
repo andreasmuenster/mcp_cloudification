@@ -77,6 +77,82 @@ Wildcards (`*`) werden in SQL-`LIKE`-Patterns übersetzt. Ohne `release`-Filter 
 
 Die Ausgabe ist im **TOON-Format** — ein kompaktes Textformat, das Objektmetadaten plus eventuelle Nachfolger auflistet.
 
+### Beispiel-Request (Postman)
+
+Der MCP-Server lässt sich direkt mit dem Postman MCP-Client testen — einfach `http://localhost:3124/mcp` als HTTP-Endpunkt eintragen:
+
+![Postman MCP Request](sample_request.png)
+
+Das Request-JSON dahinter sieht so aus:
+
+```json
+{
+  "method": "tools/call",
+  "params": {
+    "name": "search",
+    "arguments": {
+      "objectname": "CL_SALV_TABLE",
+      "limit": 100,
+      "release": "",
+      "fps": "",
+      "objecttype": ""
+    }
+  }
+}
+```
+
+## Einrichtung in Eclipse (GitHub Copilot)
+
+Der Server lässt sich als MCP-Server in Eclipse einbinden — vorausgesetzt das **GitHub Copilot Plugin** ist installiert und auf einer Version, die MCP-HTTP-Server unterstützt.
+
+### Schritt 1: Server starten
+
+Lokal oder per Docker — der Server muss laufen bevor Eclipse ihn ansprechen kann:
+
+```bash
+python server.py   # lokal
+# oder
+docker run -p 3124:3124 mcp-cloudification
+```
+
+### Schritt 2: MCP-Server in Eclipse konfigurieren
+
+In Eclipse: **Window → Preferences → GitHub Copilot → MCP Servers**
+
+Dort neuen Server hinzufügen oder direkt die JSON-Konfiguration eintragen:
+
+```json
+{
+  "servers": {
+    "Cloudification": {
+      "type": "http",
+      "url": "http://localhost:3124/mcp"
+    }
+  }
+}
+```
+
+Für einen remote laufenden Server (z.B. Docker auf einem anderen Host) einfach `localhost` durch die IP/den Hostnamen ersetzen:
+
+```json
+{
+  "servers": {
+    "Cloudification": {
+      "type": "http",
+      "url": "http://192.168.1.42:3124/mcp"
+    }
+  }
+}
+```
+
+### Schritt 3: Nutzen
+
+Nach dem Neustart von Eclipse steht das `search`-Tool im Copilot-Chat zur Verfügung. Einfach in natürlicher Sprache fragen:
+
+> *"Ist die Tabelle VBAK in S/4HANA Cloud freigegeben?"*
+> *"Welche Nachfolger gibt es für CL_SALV_TABLE?"*
+> *"Zeig mir alle FUGR-Objekte im Release 2402."*
+
 ## Projektstruktur
 
 ```
